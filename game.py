@@ -5,6 +5,7 @@ import pygame
 from gameobjects.vector2 import Vector2
 import os
 import sys
+import random
 
 class Game(object):
 	#init resource
@@ -28,6 +29,7 @@ class Game(object):
 		
 		#init game screen
 		self.screen = pygame.display.set_mode(screen_size, 0, 32)
+		self.font = pygame.font.SysFont("arial", 16)
 		pygame.display.set_caption('flappy bird')
 		
 		#init game background
@@ -45,12 +47,58 @@ class Game(object):
 		self.pipes.append(Pipe(self.__load_img(pipe2_img), Vector2(200, 260), 2))
 		self.pipes.append(Pipe(self.__load_img(pipe1_img), Vector2(60, -140), 1))
 		self.pipes.append(Pipe(self.__load_img(pipe2_img), Vector2(60, 260), 2))
-		pygame.display.flip()
 		
-		
+		#pygame.sprite.RenderPlain()：RenderPlain类型是Sprite的容器，对RenderPlain的操作，就是对内部所有Sprite的操作
+		self.pipes_group = pygame.sprite.RenderPlain(*self.pipes)
+		self.objs_group = pygame.sprite.RenderPlain(self.bird, *self.pipes)
+	
+	
 	#game main method
 	def main(self):
-		pass
+		#the main loop
+		while True:
+			#clock.tick(20)实现延时，为图像帧数
+			self.clock.tick(40)
+			self.screen.blit(self.background, (0,0))
+			#capture user event
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					sys.exit()
+			user_pressed = pygame.key.get_pressed()
+			self.bird.direction = 0
+			if user_pressed[pygame.K_UP]:
+				self.bird.direction = -1
+			time_passed = self.clock.get_time()
+			time_passed_seconds = time_passed/1000.0				
+			self.total_time += time_passed
+			
+			#game over if bird touches the field
+			if pygame.sprite.collide_rect(self.bird, self.field) == True:
+				self.bird.alive = False
+			#game over if bird touches the pipe
+			for i in xrange(4):
+				if pygame.sprite.collide_rect(self.bird, self.pipes[i]) == True:
+					self.bird.alive = False
+					
+			#update
+			self.bird.update(time_passed_seconds)
+			self.pipes_group.update(time_passed_seconds, random.randint(-50, 50))
+			self.objs_group.draw(self.screen)
+			self.screen.blit(self.field.image, self.field.rect)
+			if self.bird.alive:
+				self.score = self.total_time/1000
+				score_surface = self.font.render("Score:"+str(self.score), True, (0,0,0))
+				self.screen.blit(score_surface,(90, 400))
+			else:
+				sys.exit()
+			pygame.display.flip()
+			
+			
+			
+			
+			
+			
+			
 		
 	def __load_img(self,img):
 		img_path = os.path.join('data','image',img)
@@ -119,4 +167,5 @@ class Pipe(pygame.sprite.Sprite):
 
 
 play = Game()
+play.main()
 
