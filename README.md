@@ -3,4 +3,17 @@ py_flappy_bird
 
 ###Intro:
 
-    the game written in python
+    game written in python
+    
+###how to play:
+
+    bird flies highier while press the direction key ↑
+    
+    
+###todo:
+
+    1.add restart button while game over
+    2.add game sound
+    3.add game config button
+    
+    
