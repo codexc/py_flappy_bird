@@ -15,5 +15,6 @@ py_flappy_bird
     1.add restart button while game over
     2.add game sound
     3.add game config button
+    4.add the max score of the history
     
     
