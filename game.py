@@ -8,8 +8,11 @@ import sys
 import random
 
 class Game(object):
-	#init resource
+	""" the environm class """
+	
 	def __init__(self):
+		""" init resource """
+		
 		#pic resource
 		bg_img = r'background.png'
 		bird_img = r'bird1.png'
@@ -47,17 +50,16 @@ class Game(object):
 		self.pipes.append(Pipe(self.__load_img(pipe2_img), Vector2(200, 260), 2))
 		self.pipes.append(Pipe(self.__load_img(pipe1_img), Vector2(60, -140), 1))
 		self.pipes.append(Pipe(self.__load_img(pipe2_img), Vector2(60, 260), 2))
-		
-		#pygame.sprite.RenderPlain()£ºRenderPlainÀàĞÍÊÇSpriteµÄÈİÆ÷£¬¶ÔRenderPlainµÄ²Ù×÷£¬¾ÍÊÇ¶ÔÄÚ²¿ËùÓĞSpriteµÄ²Ù×÷
+		#pygame.sprite.RenderPlain()ï¼šRenderPlainç±»å‹æ˜¯Spriteçš„å®¹å™¨ï¼Œå¯¹RenderPlainçš„æ“ä½œï¼Œå°±æ˜¯å¯¹å†…éƒ¨æ‰€æœ‰Spriteçš„æ“ä½œ
 		self.pipes_group = pygame.sprite.RenderPlain(*self.pipes)
 		self.objs_group = pygame.sprite.RenderPlain(self.bird, *self.pipes)
 	
-	
-	#game main method
 	def main(self):
+		""" game main method """
+		
 		#the main loop
 		while True:
-			#clock.tick(20)ÊµÏÖÑÓÊ±£¬ÎªÍ¼ÏñÖ¡Êı
+			#clock.tick(20)å®ç°å»¶æ—¶ï¼Œä¸ºå›¾åƒå¸§æ•°
 			self.clock.tick(40)
 			self.screen.blit(self.background, (0,0))
 			#capture user event
@@ -93,14 +95,9 @@ class Game(object):
 				sys.exit()
 			pygame.display.flip()
 			
-			
-			
-			
-			
-			
-			
-		
 	def __load_img(self,img):
+		""" load img resource """
+		
 		img_path = os.path.join('data','image',img)
 		try:
 			img_resource = pygame.image.load(img_path)
@@ -110,8 +107,6 @@ class Game(object):
 		img_resource = img_resource.convert_alpha()
 		return img_resource
 			
-	
-		
 class Bird(pygame.sprite.Sprite):
 	def __init__(self,img):
 		pygame.sprite.Sprite.__init__(self)
@@ -127,8 +122,6 @@ class Bird(pygame.sprite.Sprite):
 			if self.alive:
 				self.rect.top += self.direction * self.speed * time_passed_seconds + self.gravity
 		
-		
-
 class Field(pygame.sprite.Sprite):
     def __init__(self,img):
         pygame.sprite.Sprite.__init__(self)
@@ -165,7 +158,7 @@ class Pipe(pygame.sprite.Sprite):
                 else:
                     self.rect.top = 260
 
-
+#here runs the game
 play = Game()
 play.main()
 
