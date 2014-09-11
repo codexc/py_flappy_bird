@@ -1,12 +1,15 @@
 py_flappy_bird
 ==============
+A Flappy Bird Clone written in Python with Pygame.
 
-###Intro:
+###Dependencies:
 
-    game written in python
+    1.python 2.7.x
+    2.pygame 1.9
     
 ###how to play:
-
+    
+    run `game.py`
     bird flies highier while press the direction key ↑
     
     
