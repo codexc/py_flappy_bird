@@ -18,6 +18,6 @@ A Flappy Bird Clone written in Python with Pygame.
     1.add restart button while game over
     2.add game sound
     3.add game config button
-    4.add the max score of the history
+    4.add the max score of the history - done
     
     
