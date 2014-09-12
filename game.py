@@ -8,10 +8,10 @@ import sys
 import random
 
 class Game(object):
-    """ the environm class """
+    ''' the environm class '''
     
     def __init__(self):
-        """ init resource """
+        ''' init resource '''
         
         #pic resource
         bg_img = r'background.png'
@@ -55,64 +55,27 @@ class Game(object):
         self.objs_group = pygame.sprite.RenderPlain(self.bird, *self.pipes)
     
     def main(self):
-        """ game main method """
-        
-        #the main loop
+        ''' game main loop '''
         while True:
             #clock.tick(20)实现延时，为图像帧数
             self.clock.tick(40)
             self.screen.blit(self.background, (0,0))
+            
             #capture user event
             for event in pygame.event.get():
-                print(event)
                 if event.type == pygame.QUIT:
-                    print(event)
                     pygame.quit()
                     sys.exit()
-            #bird alive
+
             if self.bird.alive:
-                user_pressed = pygame.key.get_pressed()
-                self.bird.direction = 0
-                if user_pressed[pygame.K_UP]:
-                    self.bird.direction = -1
-                time_passed = self.clock.get_time()
-                time_passed_seconds = time_passed/1000.0                
-                self.total_time += time_passed
-                
-                #game over if bird touches the field
-                if pygame.sprite.collide_rect(self.bird, self.field) == True:
-                    self.bird.alive = False
-                #game over if bird touches the pipe
-                for i in xrange(4):
-                    if pygame.sprite.collide_rect(self.bird, self.pipes[i]) == True:
-                        self.bird.alive = False
-                        
-                #update
-                self.bird.update(time_passed_seconds)
-                self.pipes_group.update(time_passed_seconds, random.randint(-50, 50))
-                self.objs_group.draw(self.screen)
-                
-                self.screen.blit(self.field.image, self.field.rect)
-                self.score = self.total_time/1000
-                score_surface = self.font.render("Score:"+str(self.score), True, (0,0,0))
-                self.screen.blit(score_surface,(90, 400))
-                if not self.bird.alive:
-                    record_obj = Record()
-                    self.history_record = record_obj.getRecord()
-                    #change history record
-                    if int(self.score) > int(self.history_record):
-                        record_obj.setRecord(self.score)
-            #bird not alive
+                self.gameRun()
             else:
-                over_surface = self.font.render("over" + str(self.score)+'-'+str(self.history_record), True, (0,0,0))
-                self.screen.blit(over_surface, [150, 250])
-                self.objs_group.draw(self.screen)
-                self.screen.blit(self.field.image, self.field.rect)
+                self.gameOver()
+                
             pygame.display.flip()
                 
     def __load_img(self,img):
-        """ load img resource """
-        
+        ''' load img resource '''
         img_path = os.path.join('data','image',img)
         try:
             img_resource = pygame.image.load(img_path)
@@ -122,6 +85,59 @@ class Game(object):
             sys.exit()
         img_resource = img_resource.convert_alpha()
         return img_resource
+        
+    def gameRun(self):
+        ''' process  the game '''
+        user_pressed = pygame.key.get_pressed()
+        self.bird.direction = 0
+        if user_pressed[pygame.K_UP]:
+            self.bird.direction = -1
+        time_passed = self.clock.get_time()
+        time_passed_seconds = time_passed/1000.0                
+        self.total_time += time_passed
+                
+        #check bird is alive
+        self.bird.alive = self.checkBirdAlive()
+                
+        #update
+        self.bird.update(time_passed_seconds)
+        self.pipes_group.update(time_passed_seconds, random.randint(-50, 50))
+        self.objs_group.draw(self.screen)
+        
+        self.screen.blit(self.field.image, self.field.rect)
+        self.score = self.total_time/1000
+        score_surface = self.font.render("Score:"+str(self.score), True, (0,0,0))
+        self.screen.blit(score_surface,(90, 400))
+        
+        #change record
+        self.checkRecord()
+        
+    def gameOver(self):
+        ''' out put the record and wait for user's operation '''
+        over_surface = self.font.render("over" + str(self.score)+'-'+str(self.history_record), True, (0,0,0))
+        self.objs_group.draw(self.screen)
+        self.screen.blit(self.field.image, self.field.rect)
+        self.screen.blit(over_surface, [150, 250])
+        
+    def checkBirdAlive(self):
+        ''' check whether the bird is alive '''
+        #game over if bird touches the field
+        if pygame.sprite.collide_rect(self.bird, self.field) == True:
+            return False
+        #game over if bird touches the pipe
+        for i in xrange(4):
+            if pygame.sprite.collide_rect(self.bird, self.pipes[i]) == True:
+                return False
+        return True
+        
+    def checkRecord(self):
+        ''' update the record if has new record '''
+        if not self.bird.alive:
+            record_obj = Record()
+            self.history_record = record_obj.getRecord()
+            #change history record
+            if int(self.score) > int(self.history_record):
+                record_obj.setRecord(self.score)
             
 class Bird(pygame.sprite.Sprite):
     def __init__(self,img):
@@ -175,7 +191,7 @@ class Pipe(pygame.sprite.Sprite):
                     self.rect.top = 260
 
 class Record(object):
-    """ get/set the history record """
+    ''' get/set the history record '''
     def __init__(self):
         self.record_file = 'record.txt'
         if not os.path.exists(self.record_file):
@@ -196,4 +212,3 @@ class Record(object):
 #here runs the game
 play = Game()
 play.main()
-
