@@ -36,20 +36,20 @@ class Game(object):
         pygame.display.set_caption('flappy bird')
         
         #init game background
-        self.background = self.__load_img(bg_img)
+        self.background = self.loadImg(bg_img)
         self.screen.blit(self.background,(0,0))
         
         #init game clock
         self.clock = pygame.time.Clock()
         
         #init game object
-        self.bird = Bird(self.__load_img(bird_img))
-        self.field = Field(self.__load_img(field_img))
+        self.bird = Bird(self.loadImg(bird_img))
+        self.field = Field(self.loadImg(field_img))
         self.pipes = []
-        self.pipes.append(Pipe(self.__load_img(pipe1_img), Vector2(200, -140), 1))
-        self.pipes.append(Pipe(self.__load_img(pipe2_img), Vector2(200, 260), 2))
-        self.pipes.append(Pipe(self.__load_img(pipe1_img), Vector2(60, -140), 1))
-        self.pipes.append(Pipe(self.__load_img(pipe2_img), Vector2(60, 260), 2))
+        self.pipes.append(Pipe(self.loadImg(pipe1_img), Vector2(200, -140), 1))
+        self.pipes.append(Pipe(self.loadImg(pipe2_img), Vector2(200, 260), 2))
+        self.pipes.append(Pipe(self.loadImg(pipe1_img), Vector2(60, -140), 1))
+        self.pipes.append(Pipe(self.loadImg(pipe2_img), Vector2(60, 260), 2))
         #pygame.sprite.RenderPlain()：RenderPlain类型是Sprite的容器，对RenderPlain的操作，就是对内部所有Sprite的操作
         self.pipes_group = pygame.sprite.RenderPlain(*self.pipes)
         self.objs_group = pygame.sprite.RenderPlain(self.bird, *self.pipes)
@@ -74,7 +74,7 @@ class Game(object):
                 
             pygame.display.flip()
                 
-    def __load_img(self,img):
+    def loadImg(self,img):
         ''' load img resource '''
         img_path = os.path.join('data','image',img)
         try:
