@@ -1,0 +1,135 @@
+李晓晨述职报告
+2018/12/05
+
+
+* 工作回顾
+
+业务项目
+
+- 经纪人
+- pt-content
+- 德祐官网
+
+平台项目
+
+- 灰度平台
+- gateway
+
+* 业务项目-经纪人
+
+加法
+
+- 上海点评数据对接 40w
+- 经纪人品牌信息
+- 入职年限接入ehr
+- 经纪人从业资格证件信息
+- 商业化接入,热推 吊顶展位
+
+* 业务项目-经纪人
+
+减法
+
+经纪人详情页去掉无法梳理规则功能
+
+- 出租房源
+- 二手房源
+
+* 业务项目-经纪人
+
+变更
+
+- 广州经纪人刷ucid
+- 检索的迁移
+- 带看反馈迁移
+- 带看评论接中台
+- 经纪人端口审核 外网冻结等cms迁移
+
+* 业务项目-经纪人
+
+历史遗留的解决
+
+.link http://wiki.lianjia.com/pages/viewpage.action?pageId=305466220 http://wiki.lianjia.com/pages/viewpage.action?pageId=305466220
+
+经纪人职位检索职位规则无人知晓
+不同城市会检索出的经纪人职位不同,pm已无法确认哪些规则正确
+
+
+* 业务项目-经纪人
+- 带看点评规则梳理
+
+.link http://wiki.lianjia.com/pages/viewpage.action?pageId=308970335 http://wiki.lianjia.com/pages/viewpage.action?pageId=308970335
+
+.image dianpingguize.png 500 750
+
+* 业务项目-pt-content
+做减法: 点评移除
+其他目前只维护
+
+* 业务项目-德祐官网
+
+
+- https支持
+- SEO优化及m站适配
+- 文章编辑接内容仓库
+- 前后端分离优化
+
+* 平台型项目-灰度平台
+APP版本灰度平台提供支持APP版本升级灰度的策略及数据回收功能，同时支持Android系统下APP插件的灰度
+
+.link http://wiki.lianjia.com/pages/viewpage.action?pageId=275713218 http://wiki.lianjia.com/pages/viewpage.action?pageId=275713218
+
+目前支持
+
+- 多策略配置,黑白名单
+- 版本灰度升级
+- 插件灰度升级
+- 灰度数据统计
+- cms配置管理
+
+* 平台型项目-灰度平台
+接入情况:
+.image huidujieru.png 400 500
+
+* 平台型项目-api gateway
+
+API网关定位为外网到内网之间的统一接入层，不关心具体业务逻辑。当前支持公司统一的接口签名规范、前后端API的透明转发，支持HTTPS、Session，以及限流、熔断等通用功能。
+
+.link http://wiki.lianjia.com/pages/viewpage.action?pageId=223282444 http://wiki.lianjia.com/pages/viewpage.action?pageId=223282444
+
+项目进度
+
+- php版本已实现已上功能
+- go版本重构中
+
+
+* 平台型项目-api gateway
+
+.image wangguan.png 600 800
+
+
+* 平台型项目-api gateway
+目前已接入项目:
+
+- 广厦
+- 租赁托管、租赁房源、租赁合同
+- 灰度平台
+- api开放平台
+- 链家小程序
+
+* 团队建设
+
+小组人员成长:
+帮助组员解决日常问题,使其快速成长
+
+- 邓园: 今年晋升P5 目前可独立负责灰度平台项目
+- 钱森淼: ketrace 秒X平台接入
+
+分享:
+php debug的正确姿势,综合得分9.8 高于平均9.6
+
+
+* 年后计划
+
+- 业务划分调整后经纪人业务整合
+- go业务开发框架
+- 不像新手一样写go
